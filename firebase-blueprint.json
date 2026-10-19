@@ -1,0 +1,139 @@
+{
+  "entities": {
+    "user": {
+      "title": "User",
+      "description": "User account profile and preferences",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 256 },
+        "displayName": { "type": "string", "maxLength": 128 },
+        "photoURL": { "type": "string", "maxLength": 512 },
+        "defaultCountryCode": { "type": "string", "maxLength": 8 },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["uid", "email"]
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "Subscriber / phone recipient contact record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 128 },
+        "phone": { "type": "string", "maxLength": 32 },
+        "countryCode": { "type": "string", "maxLength": 8 },
+        "fullPhone": { "type": "string", "maxLength": 32 },
+        "email": { "type": "string", "maxLength": 256 },
+        "company": { "type": "string", "maxLength": 128 },
+        "tags": { "type": "array" },
+        "listIds": { "type": "array" },
+        "isValid": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "name", "fullPhone"]
+    },
+    "contactList": {
+      "title": "ContactList",
+      "description": "Contact segment / audience group",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 128 },
+        "description": { "type": "string", "maxLength": 512 },
+        "color": { "type": "string", "maxLength": 32 },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "name"]
+    },
+    "template": {
+      "title": "Template",
+      "description": "WhatsApp or SMS message template with placeholders",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 128 },
+        "category": { "type": "string", "maxLength": 64 },
+        "channel": { "type": "string", "maxLength": 32 },
+        "body": { "type": "string", "maxLength": 4096 },
+        "variables": { "type": "array" },
+        "headerType": { "type": "string", "maxLength": 32 },
+        "headerUrl": { "type": "string", "maxLength": 1024 },
+        "footer": { "type": "string", "maxLength": 256 },
+        "buttons": { "type": "array" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "name", "body"]
+    },
+    "broadcast": {
+      "title": "Broadcast",
+      "description": "Campaign dispatch record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 256 },
+        "channel": { "type": "string", "maxLength": 32 },
+        "targetType": { "type": "string", "maxLength": 64 },
+        "targetListId": { "type": "string", "maxLength": 128 },
+        "templateId": { "type": "string", "maxLength": 128 },
+        "messageBody": { "type": "string", "maxLength": 4096 },
+        "status": { "type": "string", "maxLength": 32 },
+        "totalCount": { "type": "number" },
+        "sentCount": { "type": "number" },
+        "deliveredCount": { "type": "number" },
+        "failedCount": { "type": "number" },
+        "delaySeconds": { "type": "number" },
+        "scheduledAt": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "completedAt": { "type": "string" }
+      },
+      "required": ["userId", "title", "status"]
+    },
+    "broadcastLog": {
+      "title": "BroadcastLog",
+      "description": "Per-recipient delivery log item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "broadcastId": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "recipientName": { "type": "string", "maxLength": 128 },
+        "phone": { "type": "string", "maxLength": 32 },
+        "status": { "type": "string", "maxLength": 32 },
+        "sentAt": { "type": "string" },
+        "error": { "type": "string", "maxLength": 512 }
+      },
+      "required": ["broadcastId", "userId", "phone", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "user",
+      "description": "User profile document"
+    },
+    "/contacts/{contactId}": {
+      "schema": "contact",
+      "description": "Subscriber contact documents"
+    },
+    "/contactLists/{listId}": {
+      "schema": "contactList",
+      "description": "Audience lists"
+    },
+    "/templates/{templateId}": {
+      "schema": "template",
+      "description": "Broadcast templates"
+    },
+    "/broadcasts/{broadcastId}": {
+      "schema": "broadcast",
+      "description": "Campaign broadcasts"
+    },
+    "/broadcastLogs/{logId}": {
+      "schema": "broadcastLog",
+      "description": "Recipient log events"
+    }
+  }
+}

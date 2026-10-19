@@ -1,0 +1,6 @@
+{
+  "name": "WhatsCast Pro - WhatsApp & SMS Broadcast Studio",
+  "description": "Complete WhatsApp and SMS broadcast marketing platform with smart Excel contact import, duplicate cleaning, list management, live template builder, scheduled campaigns, and delivery analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
